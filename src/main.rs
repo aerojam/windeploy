@@ -21,7 +21,7 @@ fn main() {
     // 1. Find WIM files across drives
     let available_wims = scan_for_wims();
     if available_wims.is_empty() {
-        println!("[!] No .wim files found in root, \\sources\\ or \\images\\ folders of any drive.");
+        println!("[!] No .wim files found in root or \\sources\\ folders of any drive.");
         pause_and_exit();
     }
 
@@ -158,7 +158,7 @@ fn scan_for_wims() -> Vec<WimSelection> {
 
         let search_dirs = vec![
             drive_path.to_path_buf(),
-            drive_path.join("images"),
+            drive_path.join("sources"),
         ];
 
         for dir in search_dirs {
