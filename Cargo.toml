@@ -1,0 +1,16 @@
+[package]
+name = "windeploy"
+version = "0.1.0"
+edition = "2024"
+
+[profile.release]
+opt-level = "z"     # Optimalizace na co nejmenší velikost (případně "3" pro maximální rychlost)
+lto = true          # Link-time optimization (propojí a optimalizuje kód napříč závislostmi)
+codegen-units = 1   # Sníží počet paralelních kompilačních jednotek (lepší optimalizace)
+panic = "abort"     # Odstraní kód pro unwinding při panice (volitelné, zmenší binárku)
+strip = true        # Automaticky odstraní ladicí symboly z výsledného souboru
+
+[target.x86_64-pc-windows-gnu]
+rustflags = ["-C", "target-feature=+crt-static"]
+
+[dependencies]
