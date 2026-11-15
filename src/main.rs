@@ -343,7 +343,13 @@ fn partition_disk(disk_num: usize) {
          create partition msr size=16\n\
          create partition primary\n\
          format quick fs=ntfs label=\"Windows\"\n\
-         assign letter=W\n",
+         assign letter=W\n\
+         select volume W\n\
+         shrink desired=1024 minimum=1024\n\
+         create partition primary size=1024\n\
+         format quick fs=ntfs label=\"Windows RE tools\"\n\
+         set id=de94bba4-06d1-4d40-a16a-bfd50179d6ac\n\
+         gpt attributes=0x8000000000000001\n",
         disk_num
     );
 

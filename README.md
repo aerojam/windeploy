@@ -12,7 +12,7 @@ A lightweight, standalone console application written in **plain Rust** designed
 * **Smart Disk Filtering:** Queries available physical disks using `diskpart` and automatically filters out the source drive where the WIM file resides to prevent accidental formatting.
 * **Unattend Support:** Optionally lets you choose an XML answer file from the source directory to automate OOBE setup.
 * **Automated Deployment Pipeline:**
-  1. Partitions and formats the destination disk (GPT layout: EFI system partition, MSR, and NTFS Windows partition).
+   1. Partitions and formats the destination disk (GPT layout: EFI system partition, MSR, NTFS Windows partition, and a 1024 MB Windows Recovery-type partition).
   2. Applies the selected WIM image using `dism /Apply-Image`.
   3. Generates boot files using `bcdboot`.
   4. Copies the selected Unattend XML file to `W:\Windows\Panther\Unattend.xml`.
@@ -42,7 +42,7 @@ While fully functional for standard image deployment workflows, please take note
 * **Strict WIM File Placement:** WIM files must be located strictly in either the root directory (`.\`) or the `\sources\` folder of a detected drive. Nested sub-folders are not currently scanned.
 * **Unattend XML Placement:** XML unattend files **must** reside in the exact same source folder as the selected WIM file to be detected by the app.
 * **WIM Only (No SWM Support):** Split WIM (`.swm`) files are not supported yet; only single monolithic `.wim` archives can be processed.
-* **No WinRE Apply Support:** The tool currently targets primary Windows OS installations and does not include logic to apply or configure a dedicated Windows Recovery Environment (`WinRE.wim`) partition.
+* **No WinRE Apply Support:** The tool creates and marks a 1024 MB recovery partition but does not apply or configure a Windows Recovery Environment (`WinRE.wim`) image on it.
 
 ---
 
